@@ -2,15 +2,35 @@ name: Build APK
 on:
   push:
   workflow_dispatch:
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     env:
       # Secrets cannot be used in step `if:` directly; this flag is "true" only when all three exist.
       HAS_SIGNING: ${{ secrets.KEYSTORE_BASE64 != '' && secrets.STORE_PASSWORD != '' && secrets.KEY_PASSWORD != '' }}
     steps:
       - uses: actions/checkout@v4
-      - run: unzip -q vibecoderai*.zip -d proj
+      - name: Unpack source zip (flat or normal; newest *.zip in repo root)
+        run: |
+          Z="$(ls -t ./*.zip | head -1)"
+          echo "Using $Z"
+          mkdir -p proj
+          if unzip -Z1 "$Z" | grep -q '/'; then
+            unzip -q "$Z" -d proj
+          else
+            # Flat zip: every file sits in one folder and "@@" stands for "/" in its name.
+            mkdir flat && unzip -q "$Z" -d flat
+            find flat -maxdepth 1 -type f -printf '%f\n' | while IFS= read -r f; do
+              t="proj/${f//@@//}"
+              mkdir -p "$(dirname "$t")"
+              mv "flat/$f" "$t"
+            done
+          fi
+          ls proj
       - name: Fetch llama.cpp (pinned)
         run: git clone --depth 1 --branch b12020 https://github.com/ggml-org/llama.cpp proj/app/src/main/cpp/llama.cpp
       - uses: actions/setup-java@v4
@@ -41,6 +61,17 @@ jobs:
         with:
           name: VibeCoderAI-debug-apk
           path: out/debug/*.apk
+
+      # Unit tests run after the APK is already uploaded, so a failing test never blocks the download.
+      - name: Unit tests
+        id: unit
+        continue-on-error: true
+        run: cd proj && gradle :app:testDebugUnitTest --no-daemon --console=plain
+      - uses: actions/upload-artifact@v4
+        if: steps.unit.outcome == 'failure'
+        with:
+          name: unit-test-reports
+          path: proj/app/build/reports/tests/
 
       # ---- Release APK: only when KEYSTORE_BASE64, STORE_PASSWORD and KEY_PASSWORD secrets exist ----
       # The keystore must contain the key alias "upload" (see signingConfigs in app/build.gradle.kts).
@@ -83,10 +114,4 @@ jobs:
             -PvibeSpirvHeadersDir="$RUNNER_TEMP/spirv-install/share/cmake/SPIRV-Headers" \
             --no-daemon --console=plain
           mkdir -p ../out/vulkan
-          for f in app/build/outputs/apk/debug/*.apk; do cp "$f" "../out/vulkan/$(basename "${f%.apk}")-vulkan.apk"; done
-      - uses: actions/upload-artifact@v4
-        if: steps.vulkan.outcome == 'success'
-        continue-on-error: true
-        with:
-          name: VibeCoderAI-vulkan-debug-apk
-          path: out/vulkan/*.apk
+          for f in app/bu
