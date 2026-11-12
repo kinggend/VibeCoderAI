@@ -21,6 +21,12 @@ jobs:
           mkdir -p proj
           if unzip -Z1 "$Z" | grep -q '/'; then
             unzip -q "$Z" -d proj
+            # Normal zip: sources sit inside one top folder (e.g. VibeCoderAI/). Move them up to proj/.
+            if [ ! -f proj/settings.gradle.kts ] && [ ! -f proj/settings.gradle ]; then
+              top="$(find proj -maxdepth 2 -name 'settings.gradle*' -printf '%h\n' | head -1)"
+              [ -n "$top" ] && [ "$top" != "proj" ] || { echo "No settings.gradle found in zip"; exit 1; }
+              mv "$top" proj_root && rm -rf proj && mv proj_root proj
+            fi
           else
             # Flat zip: every file sits in one folder and "@@" stands for "/" in its name.
             mkdir flat && unzip -q "$Z" -d flat
@@ -114,4 +120,10 @@ jobs:
             -PvibeSpirvHeadersDir="$RUNNER_TEMP/spirv-install/share/cmake/SPIRV-Headers" \
             --no-daemon --console=plain
           mkdir -p ../out/vulkan
-          for f in app/bu
+          for f in app/build/outputs/apk/debug/*.apk; do cp "$f" "../out/vulkan/$(basename "${f%.apk}")-vulkan.apk"; done
+      - uses: actions/upload-artifact@v4
+        if: steps.vulkan.outcome == 'success'
+        continue-on-error: true
+        with:
+          name: VibeCoderAI-vulkan-debug-apk
+          path: out/vulkan/*.apk
