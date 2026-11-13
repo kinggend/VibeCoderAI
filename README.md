@@ -1,5 +1,11 @@
 # VibeCoderAI
 
+
+[![Release](https://img.shields.io/github/v/release/kinggend/VibeCoderAI)](https://github.com/kinggend/VibeCoderAI/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/kinggend/VibeCoderAI/total)](https://github.com/kinggend/VibeCoderAI/releases)
+[![Build](https://github.com/kinggend/VibeCoderAI/actions/workflows/WORKFLOW_FILE.yml/badge.svg)](https://github.com/kinggend/VibeCoderAI/actions)
+[![License](https://img.shields.io/github/license/kinggend/VibeCoderAI)](LICENSE)
+
 **An AI coding assistant that runs on your Android phone, offline.**
 Describe an app in chat, the AI writes it, you preview it in the app, and you can turn it into an installable APK right on the phone. No PC needed.
 
@@ -135,6 +141,3 @@ Push a change and GitHub Actions unzips the project, fetches llama.cpp, and buil
 - Small local models are best for small apps and edits.
 - Chats and project files are stored in app storage but are not encrypted; only remote server settings are.
 
----
-
-**Version:** 1.6.3
