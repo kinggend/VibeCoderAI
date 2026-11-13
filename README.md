@@ -83,15 +83,27 @@ Bigger is smarter but slower. Expect a few words per second on a mid-range phone
 
 ---
 
-## Tech stack
+### Architecture
 
-- **Kotlin + Jetpack Compose (Material 3)**: the whole app UI
-- **C++ llama.cpp (b12020) via JNI + CMake**: on-device AI
-- **Room**: chat history and token usage
-- **WorkManager + Coroutines**: background downloads, smooth UI
-- **Android Keystore (AES-256-GCM)**: API key encryption
-- **apksig + WebView shell**: on-device APK building and signing
-- **Gradle 9.3.1, JDK 21, GitHub Actions**: automatic APK builds on every push
+- **Single-activity approach:** Built entirely with Jetpack Compose UI.
+- **Core Flow:** `Compose UI` → `AgentOrchestrator (agent loop)` → `tools/engine layers`.
+- **Packages:** 
+  - `agent` (roles, loop, router, repair)
+  - `llama` (JNI engine, memory estimator)
+  - `phone` (accessibility agent + overlay)
+  - `project`, `terminal`, `build`, `patch`, `github`
+  - `data` (settings, Room), `security`, `transparency`, `ui`
+- **Dependency Injection:** Manual DI container (`AppGraph`).
+- **Testing:** Pure-Kotlin logic (router, memory math, export) is unit-tested separately.
+- **Modules:** `app` + `webshell` (WebView shell APK builder).
+
+### Tech stack
+
+- **Core:** Kotlin, Jetpack Compose + Material 3, Coroutines/Flow, Room (KSP).
+- **Native:** `llama.cpp` + `mtmd` via CMake/JNI (arm64-v8a only).
+- **Android APIs:** AccessibilityService (`takeScreenshot`, `dispatchGesture`, overlay windows), SpeechRecognizer, TextToSpeech.
+- **Security & System:** Android Keystore (AES-256-GCM), apksig + WebView shell for on-device APK building.
+- **Build:** Min SDK 24, Target/Compile SDK 36, Gradle Kotlin DSL, GitHub Actions for automated builds.
 
 ---
 
