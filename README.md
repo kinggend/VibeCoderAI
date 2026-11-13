@@ -22,6 +22,22 @@ Describe an app in chat, the AI writes it, you preview it in the app, and you ca
 
 ---
 
+### 📸 Screenshots
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/kinggend/kinggend/main/assets/vibecoder_chat.jpg" width="200" alt="Chat Interface" />
+  &nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/kinggend/kinggend/main/assets/vibecoder_projects.jpg" width="200" alt="Projects & Editor" />
+  &nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/kinggend/kinggend/main/assets/vibecoder_models.jpg" width="200" alt="Local Models" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/kinggend/kinggend/main/assets/vibecoder_terminal.jpg" width="200" alt="Sandboxed Terminal" />
+  &nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/kinggend/kinggend/main/assets/vibecoder_settings.jpg" width="200" alt="Settings" />
+</p>
+
+
 ## Features
 
 - **Chat**: streaming replies, markdown, code blocks with Copy and Insert, multiple chats with history, regenerate, voice input, file attach.
