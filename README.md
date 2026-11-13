@@ -121,4 +121,4 @@ Push a change and GitHub Actions unzips the project, fetches llama.cpp, and buil
 
 ---
 
-**Version:** 1.4.2
+**Version:** 1.6.3
