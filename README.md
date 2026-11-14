@@ -1,10 +1,10 @@
 # VibeCoderAI
 
 
-[![Release](https://img.shields.io/github/v/release/kinggend/VibeCoderAI)](https://github.com/kinggend/VibeCoderAI/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/kinggend/VibeCoderAI/total)](https://github.com/kinggend/VibeCoderAI/releases)
-https://github.com/kinggend/VibeCoderAI/actions/workflows/build-apk.yml/badge.svg(https://github.com/kinggend/VibeCoderAI/actions)
-[![License](https://img.shields.io/github/license/kinggend/VibeCoderAI)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/kinggend/VibeCoderAI?style=for-the-badge)](https://github.com/kinggend/VibeCoderAI/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/kinggend/VibeCoderAI/total?style=for-the-badge)](https://github.com/kinggend/VibeCoderAI/releases)
+[![Build](https://img.shields.io/github/actions/workflow/status/kinggend/VibeCoderAI/build-apk.yml?style=for-the-badge)](https://github.com/kinggend/VibeCoderAI/actions)
+[![License](https://img.shields.io/github/license/kinggend/VibeCoderAI?style=for-the-badge)](LICENSE)
 
 **An AI coding assistant that runs on your Android phone, offline.**
 Describe an app in chat, the AI writes it, you preview it in the app, and you can turn it into an installable APK right on the phone. No PC needed.
