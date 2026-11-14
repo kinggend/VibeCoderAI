@@ -3,7 +3,7 @@
 
 [![Release](https://img.shields.io/github/v/release/kinggend/VibeCoderAI)](https://github.com/kinggend/VibeCoderAI/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/kinggend/VibeCoderAI/total)](https://github.com/kinggend/VibeCoderAI/releases)
-[![Build](https://github.com/kinggend/VibeCoderAI/actions/workflows/WORKFLOW_FILE.yml/badge.svg)](https://github.com/kinggend/VibeCoderAI/actions)
+https://github.com/kinggend/VibeCoderAI/actions/workflows/build-apk.yml/badge.svg(https://github.com/kinggend/VibeCoderAI/actions)
 [![License](https://img.shields.io/github/license/kinggend/VibeCoderAI)](LICENSE)
 
 **An AI coding assistant that runs on your Android phone, offline.**
