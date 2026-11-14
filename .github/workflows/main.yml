@@ -1,6 +1,10 @@
 name: Build APK
 on:
   push:
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - 'assets/**'
   workflow_dispatch:
 concurrency:
   group: build-${{ github.ref }}
